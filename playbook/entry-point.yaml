@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - git_config:
+        name: user.name
+        scope: global
+        value: "ishuzaks"
+        state: present 
+
+    - git_config:
+        name: user.email
+        scope: global
+        value: "k.suzuki512+develop@gmail.com"
+        state: present 
