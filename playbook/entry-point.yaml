@@ -2,3 +2,17 @@
 - hosts: localhost
   gather_facts: false
   tasks:
+    - name: Set git user name
+      git_config:
+        name: user.name
+        scope: global
+        value: "ishuzaks"
+        state: present 
+
+    - name: Set git user email address
+      git_config:
+        name: user.email
+        scope: global
+        value: "k.suzuki512+develop@gmail.com"
+        state: present 
+    
