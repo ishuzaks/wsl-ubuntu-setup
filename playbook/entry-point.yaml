@@ -1,0 +1,56 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Set git user name
+      git_config:
+        name: user.name
+        scope: global
+        value: "ishuzaks"
+        state: present 
+
+    - name: Set git user email address
+      git_config:
+        name: user.email
+        scope: global
+        value: "k.suzuki512+develop@gmail.com"
+        state: present 
+    
+
+    - name: Deploy wsl.conf
+      copy:
+        src: ../configs/wsl.conf
+        dest: /etc/wsl.conf
+      become: yes
+
+
+    - name: Install apt_key module required package
+      apt:
+        name:
+          gpg
+        state: latest
+      become: yes
+
+    - name: Import the Google Cloud public key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        keyring: /usr/share/keyrings/cloud.google.gpg
+        state: present
+      become: yes
+      
+    - name: Add the Cloud SDK distribution URI as a package source
+      apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main
+        filename: google-cloud-sdk.list
+        state: present
+      become: yes
+
+
+    - name: Install packages
+      apt:
+        name:
+          - ffmpeg
+          - imagemagick
+          - google-cloud-sdk
+        state: latest
+      become: yes
