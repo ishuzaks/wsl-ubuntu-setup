@@ -16,3 +16,9 @@
         value: "k.suzuki512+develop@gmail.com"
         state: present 
     
+    - name: Deploy wsl.conf
+      copy:
+        src: ../configs/wsl.conf
+        dest: /etc/wsl.conf
+      become: yes
+
