@@ -22,3 +22,10 @@
         dest: /etc/wsl.conf
       become: yes
 
+    - name: Install packages
+      apt:
+        name:
+          - ffmpeg
+          - imagemagick
+        state: latest
+      become: yes
