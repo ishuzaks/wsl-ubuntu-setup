@@ -64,6 +64,8 @@
         name:
           - ffmpeg
           - imagemagick
+          - openssh-client
+          - socat
           - google-cloud-sdk
         state: latest
       become: yes
