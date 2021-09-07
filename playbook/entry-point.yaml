@@ -17,6 +17,19 @@
         state: present 
     
 
+    - name: Create ~/.ssh/config
+      file:
+        path: ~/.ssh/
+        state: directory
+        mode: '0700'
+        
+    - name: Deploy ~/.ssh/config
+      copy:
+        src: ../configs/ssh_config
+        dest: ~/.ssh/config
+        mode: '0600'
+
+
     - name: Deploy wsl.conf
       copy:
         src: ../configs/wsl.conf
