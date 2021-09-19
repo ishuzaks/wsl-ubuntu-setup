@@ -42,6 +42,7 @@
         name:
           gpg
         state: latest
+        cache_valid_time: 3600
       become: yes
 
     - name: Import the Google Cloud public key
@@ -68,4 +69,5 @@
           - socat
           - google-cloud-sdk
         state: latest
+        cache_valid_time: 3600
       become: yes
