@@ -16,6 +16,13 @@
         value: "k.suzuki512+develop@gmail.com"
         state: present 
     
+    - name: Setting git core.editor
+      git_config:
+        name: core.editor
+        scope: global
+        value: "code"
+        state: present 
+
 
     - name: Create ~/.ssh directory
       file:
