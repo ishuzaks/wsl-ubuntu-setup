@@ -3,3 +3,5 @@
 	email = k.suzuki512+develop@gmail.com
 [core]
 	editor = code --wait
+[pull]
+	rebase = false
