@@ -30,13 +30,6 @@
         mode: '0600'
 
 
-    - name: Deploy wsl.conf
-      copy:
-        src: ../configs/wsl.conf
-        dest: /etc/wsl.conf
-      become: yes
-
-
     - name: Install apt_key module required package
       apt:
         name:
