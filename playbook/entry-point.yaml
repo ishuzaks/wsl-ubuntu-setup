@@ -2,14 +2,14 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-    - name: Set git user name
+    - name: Setting git user.name
       git_config:
         name: user.name
         scope: global
         value: "ishuzaks"
         state: present 
 
-    - name: Set git user email address
+    - name: Setting git user.email
       git_config:
         name: user.email
         scope: global
@@ -17,13 +17,13 @@
         state: present 
     
 
-    - name: Create ~/.ssh/config
+    - name: Create ~/.ssh directory
       file:
         path: ~/.ssh/
         state: directory
         mode: '0700'
         
-    - name: Deploy ~/.ssh/config
+    - name: Deploy ~/.ssh/config file
       copy:
         src: ../configs/ssh_config
         dest: ~/.ssh/config
