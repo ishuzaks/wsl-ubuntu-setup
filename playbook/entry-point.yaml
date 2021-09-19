@@ -2,27 +2,10 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-    - name: Setting git user.name
-      git_config:
-        name: user.name
-        scope: global
-        value: "ishuzaks"
-        state: present 
-
-    - name: Setting git user.email
-      git_config:
-        name: user.email
-        scope: global
-        value: "k.suzuki512+develop@gmail.com"
-        state: present 
-    
-    - name: Setting git core.editor
-      git_config:
-        name: core.editor
-        scope: global
-        value: "code"
-        state: present 
-
+    - name: Deploy ~/.gitconfig file
+      copy:
+        src: ../configs/.gitconfig
+        dest: ~/.gitconfig
 
     - name: Create ~/.ssh directory
       file:
