@@ -48,7 +48,7 @@
       apt:
         name:
           - ffmpeg
-          - imagemagick
+          - poppler-utils
           - openssh-client
           - socat
           - google-cloud-sdk
