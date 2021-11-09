@@ -53,6 +53,8 @@
     - name: Install packages
       apt:
         name:
+          - zip
+          - unzip
           - ffmpeg
           - poppler-utils
           - openssh-client
