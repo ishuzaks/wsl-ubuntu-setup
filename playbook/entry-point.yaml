@@ -8,6 +8,12 @@
         dest: ~/.gitconfig
 
 
+    - name: Deploy ~/.bash_profile file
+      copy:
+        src: ../configs/.bash_profile
+        dest: ~/.bash_profile
+
+
     - name: Create ~/.ssh directory
       file:
         path: ~/.ssh/
