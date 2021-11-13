@@ -4,3 +4,9 @@ Host github.com
     IdentityFile ~/.ssh/id_github
     IdentitiesOnly yes
     Compression yes
+
+Host source.developers.google.com
+    HostName source.developers.google.com
+    Port 2022
+    User k.suzuki512.biz@gmail.com
+    IdentityFile ~/.ssh/id_gcp_for_bzk
