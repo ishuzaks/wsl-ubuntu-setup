@@ -4,13 +4,13 @@
   tasks:
     - name: Deploy ~/.gitconfig file
       copy:
-        src: ../configs/.gitconfig
+        src: files/.gitconfig
         dest: ~/.gitconfig
 
 
     - name: Deploy ~/.bash_profile file
       copy:
-        src: ../configs/.bash_profile
+        src: files/.bash_profile
         dest: ~/.bash_profile
 
 
@@ -22,7 +22,7 @@
         
     - name: Deploy ~/.ssh/config file
       copy:
-        src: ../configs/ssh_config
+        src: files/ssh_config
         dest: ~/.ssh/config
         mode: '0600'
 
@@ -104,4 +104,4 @@
         marker: "# {mark} ANSIBLE Pyenv startup command."
         block: "{{item}}"
       with_file:
-        - ../configs/.bashrc
+        - files/.bashrc
