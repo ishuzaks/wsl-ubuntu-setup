@@ -1,0 +1,10 @@
+---
+- name: Add startup commands to ~/.bashrc.
+  blockinfile:
+    path: ~/.bashrc
+    create: yes
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE Pyenv startup command."
+    block: "{{item}}"
+  with_file:
+    - files/.bashrc

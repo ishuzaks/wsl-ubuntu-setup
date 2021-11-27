@@ -1,9 +1,0 @@
-[user]
-	name = ishuzaks
-	email = k.suzuki512+develop@gmail.com
-[core]
-	editor = code --wait
-[pull]
-	rebase = false
-[init]
-	defaultBranch = main

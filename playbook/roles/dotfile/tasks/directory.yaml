@@ -1,0 +1,6 @@
+---
+- name: Create symbolic link ~/.ssh directory
+  file:
+    src: /mnt/c/Users/k.suzuki/.ssh
+    dest: ~/.ssh
+    state: link

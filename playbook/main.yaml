@@ -1,107 +1,14 @@
 ---
 - hosts: localhost
   gather_facts: false
-  tasks:
-    - name: Deploy ~/.gitconfig file
-      copy:
-        src: files/.gitconfig
-        dest: ~/.gitconfig
-
-
-    - name: Deploy ~/.bash_profile file
-      copy:
-        src: files/.bash_profile
-        dest: ~/.bash_profile
-
-
-    - name: Create ~/.ssh directory
-      file:
-        path: ~/.ssh/
-        state: directory
-        mode: '0700'
-        
-    - name: Deploy ~/.ssh/config file
-      copy:
-        src: files/ssh_config
-        dest: ~/.ssh/config
-        mode: '0600'
-
-
-    - name: Install apt_key module required package
-      apt:
-        name:
-          gpg
-        state: latest
-        cache_valid_time: 3600
-      become: yes
-
-    - name: Import the Google Cloud public key
-      apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        keyring: /usr/share/keyrings/cloud.google.gpg
-        state: present
-      become: yes
-      
-    - name: Add the Cloud SDK distribution URI as a package source
-      apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main
-        filename: google-cloud-sdk.list
-        state: present
-      become: yes
-
-
-    - name: Install packages
-      apt:
-        name:
-          - zip
-          - unzip
-          - ffmpeg
-          - poppler-utils
-          - openssh-client
-          - socat
-          - google-cloud-sdk
-          - sshpass
-        state: latest
-        cache_valid_time: 3600
-      become: yes
-
-    # Install .pyenv
-
-    - name: Install the Python build dependencies.
-      apt:
-        name:
-          - make
-          - build-essential
-          - libssl-dev
-          - zlib1g-dev
-          - libbz2-dev
-          - libreadline-dev
-          - libsqlite3-dev
-          - wget
-          - curl
-          - llvm
-          - libncursesw5-dev
-          - xz-utils
-          - tk-dev
-          - libxml2-dev
-          - libxmlsec1-dev
-          - libffi-dev
-          - liblzma-dev
-        state: latest
-        cache_valid_time: 3600
-      become: yes
-
-    - name: Clone pyenv repository.
-      git:
-        repo: https://github.com/pyenv/pyenv.git
-        dest: ~/.pyenv
-
-    - name: Add startup commands to ~/.bashrc.
-      blockinfile:
-        path: ~/.bashrc
-        create: yes
-        insertafter: EOF
-        marker: "# {mark} ANSIBLE Pyenv startup command."
-        block: "{{item}}"
-      with_file:
-        - files/.bashrc
+  roles:
+    - role: common
+      tags: common
+    - role: install_pyenv
+      tags: install_pyenv
+    - role: install_google_cloud_sdk
+      tags: install_google_cloud_sdk
+    - role: install_chrome
+      tags: install_chrome
+  # tasks:
+  #   # - include_tasks: tasks/dotfiles.yaml

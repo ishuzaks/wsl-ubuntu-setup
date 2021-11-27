@@ -1,0 +1,11 @@
+---
+# - name: Deploy ~/.gitconfig file
+#   copy:
+#     src: files/.gitconfig
+#     dest: ~/.gitconfig
+
+
+# - name: Deploy ~/.bash_profile file
+#   copy:
+#     src: files/.bash_profile
+#     dest: ~/.bash_profile
