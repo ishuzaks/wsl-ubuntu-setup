@@ -4,11 +4,11 @@
   roles:
     - role: common
       tags: common
+    - role: dotfile
+      tags: dotfile
     - role: install_pyenv
       tags: install_pyenv
     - role: install_google_cloud_sdk
       tags: install_google_cloud_sdk
     - role: install_chrome
       tags: install_chrome
-  # tasks:
-  #   # - include_tasks: tasks/dotfiles.yaml

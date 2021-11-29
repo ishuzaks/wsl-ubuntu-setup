@@ -1,6 +1,12 @@
 ---
+- name: Check .ssh directory
+  stat:
+    path: /mnt/c/Users/k.suzuki/.ssh
+  register: ssh_dir
+
 - name: Create symbolic link ~/.ssh directory
   file:
     src: /mnt/c/Users/k.suzuki/.ssh
     dest: ~/.ssh
     state: link
+  when: ssh_dir.stat.exists == true
