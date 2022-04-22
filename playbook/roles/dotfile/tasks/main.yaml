@@ -1,3 +1,2 @@
 ---
-# - include_tasks: file.yaml
 - include_tasks: directory.yaml
