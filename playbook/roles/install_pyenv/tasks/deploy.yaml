@@ -3,3 +3,12 @@
   git:
     repo: https://github.com/pyenv/pyenv.git
     dest: ~/.pyenv
+
+- name: Exec configure.
+  ansible.builtin.shell:
+    cmd: ./configure
+    chdir: ~/.pyenv/src/
+
+- name: Exec make.
+  community.general.make:
+    chdir: ~/.pyenv/src/

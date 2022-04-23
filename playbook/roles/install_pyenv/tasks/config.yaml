@@ -8,3 +8,23 @@
     block: "{{item}}"
   with_file:
     - files/.bashrc
+
+- name: Add environment variable settings for pyenv.
+  blockinfile:
+    path: ~/.profile
+    create: yes
+    insertbefore: '# if running bash'
+    marker: "# {mark} ANSIBLE Configure environment variable for pyenv."
+    block: "{{item}}"
+  with_file:
+    - files/configure_environment_variable.sh
+
+- name: Add pyenv path initialization command.
+  blockinfile:
+    path: ~/.profile
+    create: yes
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE Pyenv path initialization command."
+    block: "{{item}}"
+  with_file:
+    - files/pyenv_init_path.sh
