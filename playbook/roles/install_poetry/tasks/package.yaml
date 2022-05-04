@@ -1,0 +1,7 @@
+---
+- name: Install poetry requirements package
+  apt:
+    name:
+      - python3-distutils
+    state: latest
+  become: true

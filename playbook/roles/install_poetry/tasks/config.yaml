@@ -1,0 +1,11 @@
+---
+- name: Check poetry config virtualenvs.in-project
+  ansible.builtin.command:
+    cmd: ~/.poetry/bin/poetry config virtualenvs.in-project
+  register: virtualenvs_in_project
+  changed_when: False
+
+- name: Set virtualenvs.in-project to true
+  ansible.builtin.command:
+    cmd: ~/.poetry/bin/poetry config virtualenvs.in-project true
+  when: virtualenvs_in_project.stdout.lower() != "true" 

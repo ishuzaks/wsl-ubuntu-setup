@@ -14,5 +14,5 @@
       tags: setting_ssh_agent
     - role: install_google_cloud_sdk
       tags: install_google_cloud_sdk
-    - role: install_chrome
-      tags: install_chrome
+    # - role: install_chrome
+    #   tags: install_chrome
