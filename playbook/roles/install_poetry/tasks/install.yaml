@@ -7,6 +7,6 @@
 
 - name: Run poetry installer
   ansible.builtin.command:
-    cmd: python
+    cmd: python3
     stdin: "{{ poetry_installer.content }}"
     creates: ~/.poetry
