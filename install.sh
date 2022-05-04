@@ -11,3 +11,4 @@ sudo apt-get install --yes ansible
 
 cd ${PWD}/playbook
 LANG=C ansible-playbook --ask-become-pass --connection local --inventory localhost, main.yaml
+sudo apt-get autoremove --yes
