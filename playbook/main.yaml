@@ -8,9 +8,11 @@
       tags: dotfile
     - role: install_pyenv
       tags: install_pyenv
+    - role: install_poetry
+      tags: install_poetry
+    - role: setting_ssh_agent
+      tags: setting_ssh_agent
     - role: install_google_cloud_sdk
       tags: install_google_cloud_sdk
     - role: install_chrome
       tags: install_chrome
-    - role: install_poetry
-      tags: install_poetry
