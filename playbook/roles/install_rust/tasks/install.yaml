@@ -1,0 +1,13 @@
+---
+- name: Fetch Rust installer
+  ansible.builtin.uri:
+    url: https://sh.rustup.rs
+    return_content: yes
+  register: rust_installer
+
+- name: Run Rust installer
+  ansible.builtin.command:
+    cmd: sh -s -- -y
+    stdin: "{{ rust_installer.content }}"
+    creates: ~/.cargo/bin
+  

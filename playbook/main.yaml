@@ -16,3 +16,5 @@
     #   tags: install_google_cloud_sdk
     # - role: install_chrome
     #   tags: install_chrome
+    - role: install_rust
+      tags: install_rust
