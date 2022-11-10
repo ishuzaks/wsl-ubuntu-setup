@@ -7,7 +7,9 @@
 実行ユーザがsudoを実行できること
 
 ## コマンド
+
 ```bash
 $ git clone git@github.com:ishuzaks/wsl-ubuntu-setup.git
-$ bash wsl-ubuntu-setup/install.sh
+$ cd wsl-ubuntu-setup/
+$ bash install.sh playbook/main.yaml
 ```

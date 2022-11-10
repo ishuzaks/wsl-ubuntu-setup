@@ -1,7 +1,7 @@
 ---
 - name: Fetch poetry
   ansible.builtin.uri:
-    url: https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
+    url: https://install.python-poetry.org
     return_content: yes
   register: poetry_installer
 
@@ -9,4 +9,5 @@
   ansible.builtin.command:
     cmd: python3
     stdin: "{{ poetry_installer.content }}"
-    creates: ~/.poetry
+    creates: ~/.local/bin/poetry
+  

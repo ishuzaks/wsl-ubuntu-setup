@@ -9,7 +9,5 @@
       - openssh-client
       # VS Code required
       - socat
-      # install_google_cloud_sdk and install_chrome
-      - gpg
     state: latest
   become: true
