@@ -1,6 +1,17 @@
 ---
-- hosts: localhost
+- name: Execute environment construction
+  hosts: localhost
   gather_facts: false
   tasks:
-    - include_tasks: tasks/system.yaml
-    - include_tasks: tasks/user.yaml
+    - name: Execute tasks that require root privileges
+      ansible.builtin.import_tasks:
+        file: tasks/system.yaml
+      become: true
+
+    - name: Execute task
+      ansible.builtin.import_tasks:
+        file: tasks/user_taks.yaml
+  handlers:
+    - name: User level handlers
+      ansible.builtin.import_tasks:
+        file: tasks/user_handlers.yaml

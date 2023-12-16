@@ -16,12 +16,10 @@ ARG USERNAME=test_user
 ARG GROUPNAME=test_users
 ARG PASSWORD=test
 
-RUN echo "${USERNAME} ALL=(ALL) ALL" | EDITOR='tee -a' visudo
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" | EDITOR='tee -a' visudo
 
 RUN groupadd ${GROUPNAME} \
  && useradd -g ${GROUPNAME} -m -s $(which bash) ${USERNAME} \
  && echo ${USERNAME}:${PASSWORD} | chpasswd
 
 USER ${USERNAME}:${GROUPNAME}
-
-WORKDIR /home/${USERNAME}/

@@ -1,0 +1,15 @@
+---
+- name: Check bash startup files existence
+  ansible.builtin.stat:
+    path: "{{ startup_file_path }}"
+  register: startup_files
+
+- name: Add startup commands to {{ startup_file_path }}
+  ansible.builtin.blockinfile:
+    path: "{{ startup_file_path }}"
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE pyenv startup command"
+    block: "{{ item }}"
+  with_file:
+    - block_files/load_pyenv.sh
+  when: startup_files.stat.exists

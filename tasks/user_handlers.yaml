@@ -1,0 +1,19 @@
+---
+- name: Configure pyenv
+  ansible.builtin.command:
+    cmd: ./configure
+    chdir: ~/.pyenv/src
+  register: result_cmd
+  changed_when: result_cmd.rc == 0
+  notify:
+    - Execute make command
+
+- name: Execute make command
+  community.general.make:
+    chdir: ~/.pyenv/src
+
+- name: Run poetry installer
+  ansible.builtin.command:
+    cmd: python3
+    stdin: "{{ poetry_installer.content }}"
+    creates: ~/.local/bin/poetry
