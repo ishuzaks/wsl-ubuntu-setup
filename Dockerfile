@@ -9,8 +9,12 @@ RUN apt-get update \
     git \
     openssh-client \
     sudo \
+    python3-pip \
+    python3-venv \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+RUN python3 -m pip install ansible-lint
 
 ARG USERNAME=test_user
 ARG GROUPNAME=test_users
