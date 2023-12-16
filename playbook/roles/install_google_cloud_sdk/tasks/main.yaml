@@ -1,4 +1,0 @@
----
-- include_tasks: required_package.yaml
-- include_tasks: config.yaml
-- include_tasks: install.yaml

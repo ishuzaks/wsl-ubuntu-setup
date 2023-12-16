@@ -1,8 +1,9 @@
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install --yes --no-install-recommends \
+RUN apt-get update \
+ && apt-get install --yes --no-install-recommends \
     ca-certificates \
     curl \
     git \
@@ -11,23 +12,16 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-ARG USERNAME=test-user
-ARG GROUPNAME=test-users
+ARG USERNAME=test_user
+ARG GROUPNAME=test_users
 ARG PASSWORD=test
 
-RUN groupadd ${GROUPNAME} && \
-    useradd -g ${GROUPNAME} -G sudo -m -s $(which bash) ${USERNAME} && \
-    echo ${USERNAME}:${PASSWORD} | chpasswd
+RUN echo "${USERNAME} ALL=(ALL) ALL" | EDITOR='tee -a' visudo
 
-RUN USER=${USERNAME} && \
-    GROUP=${GROUPNAME} && \
-    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5.1/fixuid-0.5.1-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
-    chmod 4755 /usr/local/bin/fixuid && \
-    mkdir -p /etc/fixuid && \
-    printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
+RUN groupadd ${GROUPNAME} \
+ && useradd -g ${GROUPNAME} -m -s $(which bash) ${USERNAME} \
+ && echo ${USERNAME}:${PASSWORD} | chpasswd
 
 USER ${USERNAME}:${GROUPNAME}
 
 WORKDIR /home/${USERNAME}/
-
-ENTRYPOINT [ "fixuid" ]

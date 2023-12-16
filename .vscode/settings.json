@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible.json": "file:///workspaces/wsl-ubuntu-setup/playbook/roles/install_pyenv/tasks/deploy.yaml"
-    }
-}

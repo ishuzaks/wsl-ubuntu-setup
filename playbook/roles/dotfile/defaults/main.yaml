@@ -1,3 +1,0 @@
----
-win_user_dir_path: /mnt/c/Users/k.suzuki
-ssh_dir_path: "{{win_user_dir_path}}/.ssh"

@@ -1,0 +1,90 @@
+---
+- name: disable ctrl+s and ctrl+q
+  blockinfile:
+    path: ~/.bashrc
+    create: yes
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE disable ctrl+s and ctrl+q"
+    block: |
+      if [[ -t 0 ]]; then
+        stty stop undef
+        stty start undef
+      fi
+
+# install pyenv
+- name: clone pyenv repository
+  git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: ~/.pyenv
+
+- name: configure pyenv
+  command:
+    cmd: './configure'
+    chdir: ~/.pyenv/src
+
+- name: execute make command
+  community.general.make:
+    chdir: ~/.pyenv/src
+
+- name: add startup commands to ~/.bashrc
+  blockinfile:
+    path: ~/.bashrc
+    create: yes
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE pyenv startup command"
+    block: "{{item}}"
+  with_file:
+    - block_files/load_pyenv.sh
+
+- name: Add startup commands to ~/.profile.
+  blockinfile:
+    path: ~/.profile
+    create: no
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE pyenv startup command"
+    block: "{{item}}"
+  with_file:
+    - block_files/load_pyenv.sh
+
+# - name: Add startup commands to ~/.bash_profile
+#   blockinfile:
+#     path: ~/.bash_profile 
+#     create: no
+#     insertafter: EOF
+#     marker: "# {mark} ANSIBLE pyenv startup command"
+#     block: "{{item}}"
+#   with_file:
+#     - block_files/load_pyenv.sh
+
+# - name: Add startup commands to ~/.bash_login
+#   blockinfile:
+#     path: ~/.bash_login
+#     create: no
+#     insertafter: EOF
+#     marker: "# {mark} ANSIBLE pyenv startup command"
+#     block: "{{item}}"
+#   with_file:
+#     - block_files/load_pyenv.sh
+
+- name: fetch poetry installer
+  ansible.builtin.uri:
+    url: https://install.python-poetry.org
+    return_content: yes
+  register: poetry_installer
+
+- name: run poetry installer
+  ansible.builtin.command:
+    cmd: python3
+    stdin: "{{ poetry_installer.content }}"
+    creates: ~/.local/bin/poetry
+
+- name: check poetry config virtualenvs.in-project
+  ansible.builtin.command:
+    cmd: ~/.local/bin/poetry config virtualenvs.in-project
+  register: virtualenvs_in_project
+  changed_when: False
+
+- name: set virtualenvs.in-project to true
+  ansible.builtin.command:
+    cmd: ~/.local/bin/poetry config virtualenvs.in-project true
+  when: virtualenvs_in_project.stdout.lower() != "true" 

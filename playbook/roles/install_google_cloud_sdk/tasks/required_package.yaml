@@ -1,7 +1,0 @@
----
-- name: Install required packages
-  apt:
-    name:
-      - gpg
-    state: latest
-  become: yes

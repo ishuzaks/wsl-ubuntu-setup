@@ -1,7 +1,0 @@
----
-- name: Install Cloud SDK
-  apt:
-    name:
-      - google-cloud-sdk
-    state: latest
-  become: yes

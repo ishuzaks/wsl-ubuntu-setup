@@ -1,7 +1,0 @@
----
-- name: Install Google Chrome
-  apt:
-    name:
-      - google-chrome-stable
-    state: latest
-  become: yes

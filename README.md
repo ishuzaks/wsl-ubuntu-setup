@@ -9,7 +9,7 @@
 ## コマンド
 
 ```bash
-$ git clone git@github.com:ishuzaks/wsl-ubuntu-setup.git
-$ cd wsl-ubuntu-setup/
-$ bash install.sh playbook/main.yaml
+git clone git@github.com:ishuzaks/wsl-ubuntu-setup.git
+sudo ./wsl-ubuntu-setup/01_install_ansible.sh
+./wsl-ubuntu-setup/02_execute_ansible.sh
 ```
