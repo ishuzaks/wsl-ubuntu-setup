@@ -13,3 +13,8 @@ git clone git@github.com:ishuzaks/wsl-ubuntu-setup.git
 sudo ./wsl-ubuntu-setup/01_install_ansible.sh
 ./wsl-ubuntu-setup/02_execute_ansible.sh
 ```
+
+## TODO
+
+- poetryのコマンド補完有効化
+- pyenv -> deadsnakesリポジトリを利用しaptによるバージョン管理
