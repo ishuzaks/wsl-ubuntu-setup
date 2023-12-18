@@ -6,14 +6,20 @@
   register: result_cmd
   changed_when: result_cmd.rc == 0
   notify:
-    - Execute make command
+    - make_pyenv
+  listen:
+    - configure_pyenv
 
-- name: Execute make command
+- name: Make pyenv
   community.general.make:
     chdir: ~/.pyenv/src
+  listen:
+    - make_pyenv
 
 - name: Run poetry installer
   ansible.builtin.command:
     cmd: python3
     stdin: "{{ poetry_installer.content }}"
     creates: ~/.local/bin/poetry
+  listen:
+    - run_poetry_installer

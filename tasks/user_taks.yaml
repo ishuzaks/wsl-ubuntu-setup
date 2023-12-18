@@ -19,7 +19,7 @@
     dest: ~/.pyenv
     version: v20160726
   notify:
-    - Configure pyenv
+    - configure_pyenv
 
 - name: Add pyenv startup commands
   ansible.builtin.include_tasks: tasks/configure_pyenv.yaml
@@ -37,7 +37,10 @@
     return_content: true
   register: poetry_installer
   notify:
-    - Run poetry installer
+    - run_poetry_installer
+
+- name: Start the handler after downloading the installer for poetry
+  ansible.builtin.meta: flush_handlers
 
 - name: Check poetry config virtualenvs.in-project
   ansible.builtin.command:
