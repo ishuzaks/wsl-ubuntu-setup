@@ -12,6 +12,16 @@
       fi
     mode: "0644"
 
+- name: Add integration with 1password
+  ansible.builtin.blockinfile:
+    path: ~/.bash_aliases
+    create: true
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE integration with 1password"
+    block: "{{ item }}"
+  with_file:
+    - block_files/part_bash_aliases.sh
+
 # install pyenv
 - name: Clone pyenv repository
   ansible.builtin.git:
@@ -37,6 +47,14 @@
     return_content: true
   register: poetry_installer
   notify:
+    - run_poetry_installer
+
+- name: Run poetry installer
+  ansible.builtin.command:
+    cmd: python3
+    stdin: "{{ poetry_installer.content }}"
+    creates: ~/.local/bin/poetry
+  listen:
     - run_poetry_installer
 
 - name: Start the handler after downloading the installer for poetry

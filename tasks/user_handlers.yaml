@@ -15,11 +15,3 @@
     chdir: ~/.pyenv/src
   listen:
     - make_pyenv
-
-- name: Run poetry installer
-  ansible.builtin.command:
-    cmd: python3
-    stdin: "{{ poetry_installer.content }}"
-    creates: ~/.local/bin/poetry
-  listen:
-    - run_poetry_installer
