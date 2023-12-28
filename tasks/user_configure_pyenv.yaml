@@ -1,5 +1,5 @@
 ---
-- name: Check bash startup files existence
+- name: Check {{ startup_file_path }} existence
   ansible.builtin.stat:
     path: "{{ startup_file_path }}"
   register: startup_files

@@ -22,7 +22,7 @@
     - configure_pyenv
 
 - name: Add pyenv startup commands
-  ansible.builtin.include_tasks: tasks/configure_pyenv.yaml
+  ansible.builtin.include_tasks: tasks/user_configure_pyenv.yaml
   loop:
     - ~/.bashrc
     - ~/.profile
