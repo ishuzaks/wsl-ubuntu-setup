@@ -1,9 +1,9 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
- && apt-get install --yes --no-install-recommends \
+    && apt-get install --yes --no-install-recommends \
     ca-certificates \
     curl \
     git \
@@ -11,8 +11,8 @@ RUN apt-get update \
     sudo \
     python3-pip \
     python3-venv \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install ansible-lint
 
@@ -23,7 +23,7 @@ ARG PASSWORD=test
 RUN echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" | EDITOR='tee -a' visudo
 
 RUN groupadd ${GROUPNAME} \
- && useradd -g ${GROUPNAME} -m -s $(which bash) ${USERNAME} \
- && echo ${USERNAME}:${PASSWORD} | chpasswd
+    && useradd -g ${GROUPNAME} -m -s $(which bash) ${USERNAME} \
+    && echo ${USERNAME}:${PASSWORD} | chpasswd
 
 USER ${USERNAME}:${GROUPNAME}
