@@ -23,12 +23,20 @@
   with_file:
     - block_files/part_bash_aliases.sh
 
+- name: Check existence of ssh.exe
+  ansible.builtin.command:
+    cmd: which ssh.exe
+  register: existence_ssh_exe
+  ignore_errors: true
+  changed_when: false
+
 - name: Add integration with 1password for git
   community.general.git_config:
     scope: global
     name: core.sshCommand
-    value: "ssh.exe"
+    value: bash -c "type ssh.exe"
     file: ~/.gitconfig
+  when: existence_ssh_exe.rc == 0
 
 # install pyenv
 - name: Clone pyenv repository
