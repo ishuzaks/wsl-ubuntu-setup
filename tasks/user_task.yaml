@@ -19,8 +19,24 @@
     insertafter: EOF
     marker: "# {mark} ANSIBLE integration with 1password"
     block: "{{ item }}"
+    mode: "0644"
   with_file:
     - block_files/part_bash_aliases.sh
+
+- name: Check existence of ssh.exe
+  ansible.builtin.command:
+    cmd: which ssh.exe
+  register: existence_ssh_exe
+  ignore_errors: true
+  changed_when: false
+
+- name: Add integration with 1password for git
+  community.general.git_config:
+    scope: global
+    name: core.sshCommand
+    value: bash -c "type ssh.exe"
+    file: ~/.gitconfig
+  when: existence_ssh_exe.rc == 0
 
 # install pyenv
 - name: Clone pyenv repository
@@ -46,19 +62,12 @@
     url: https://install.python-poetry.org
     return_content: true
   register: poetry_installer
-  notify:
-    - run_poetry_installer
 
 - name: Run poetry installer
   ansible.builtin.command:
     cmd: python3
     stdin: "{{ poetry_installer.content }}"
     creates: ~/.local/bin/poetry
-  listen:
-    - run_poetry_installer
-
-- name: Start the handler after downloading the installer for poetry
-  ansible.builtin.meta: flush_handlers
 
 - name: Check poetry config virtualenvs.in-project
   ansible.builtin.command:

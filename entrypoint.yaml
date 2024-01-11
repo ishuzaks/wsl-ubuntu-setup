@@ -10,7 +10,7 @@
 
     - name: Execute task
       ansible.builtin.import_tasks:
-        file: tasks/user_taks.yaml
+        file: tasks/user_task.yaml
   handlers:
     - name: User level handlers
       ansible.builtin.import_tasks:
